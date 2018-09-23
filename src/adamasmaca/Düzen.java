@@ -1,6 +1,7 @@
 package adamasmaca;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class Düzen {
 
@@ -17,9 +18,8 @@ public class Düzen {
 
     }
 
-    public void harfAç(String seçilenKelime, char girilenHarf, int hak) {
-
-       
+    public void harfAç(String seçilenKelime, char girilenHarf, int hak,char[] göster) {
+        Scanner input = new Scanner(System.in);
         ArrayList<Integer> bulunanIndex = new ArrayList<Integer>();
         int a = 0;
         for (int k = 0; k < seçilenKelime.length(); k++) {
@@ -29,9 +29,7 @@ public class Düzen {
 
             }
         }
-        for (int p = 0; p < bulunanIndex.size(); p++) {
-            System.out.println(bulunanIndex.get(p));
-        }
+
         hak = hak - 1;
         if (bulunanIndex.isEmpty()) {
             System.out.println("Çıkmadı.Yeniden deneyin..\n" + "Kalan hakkınız : " + hak);
@@ -39,27 +37,41 @@ public class Düzen {
             //BU HARF KELİMENİN İÇİNDE VAR
 
             System.out.println("Bu harf var");
-            char[] göster = new char[seçilenKelime.length()];
-            for(int m=0;m<göster.length;m++)
-            {
+            
+            for (int m = 0; m < göster.length; m++) {
                 for (int s = 0; s < bulunanIndex.size(); s++) {
                     int b = bulunanIndex.get(s);
                     göster[b] = girilenHarf;
                 }
                 if (seçilenKelime.charAt(m) == ' ') {
-                    göster[m]='/';
-                    
+                    göster[m] = '/';
+
                 } else {
-                    göster[m]='_';
-                    
+                    göster[m] = '_';
+
                 }
-                
+
             }
-            for(int y=0;y<göster.length;y++)
-            {
-                System.out.print(göster[y]+" ");
+            for (int y = 0; y < göster.length; y++) {
+                System.out.print(göster[y] + " ");
+
             }
-            
+            System.out.println();
+            for (int y = 0; y < göster.length; y++) {
+                if (göster[y] != '_') {
+                    break;
+                } else {
+                    char yeniHarf;
+                    System.out.println("Daha bitmedi");
+                    System.out.println("Tebrikler.Kalan hakkınız : " + (hak + 1));
+
+                    System.out.println("Yeni bir harf girin : ");
+
+                    yeniHarf = input.next().toUpperCase().charAt(0);
+                    harfAç(seçilenKelime, yeniHarf, hak + 1,göster);
+                }
+
+            }
         }
     }
 }

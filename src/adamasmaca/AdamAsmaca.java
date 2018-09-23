@@ -24,8 +24,8 @@ public class AdamAsmaca {
         System.out.println("Kalan hakkınız : " + kalanHak);
         System.out.print("Bir harf girin :");
         girilenHarf=input.next().toUpperCase().charAt(0);
-        
-        firstLook.harfAç(seçilenKelime, girilenHarf,kalanHak);
+        char[] göster = new char[seçilenKelime.length()];
+        firstLook.harfAç(seçilenKelime, girilenHarf,kalanHak,göster);
     }
 
 }
