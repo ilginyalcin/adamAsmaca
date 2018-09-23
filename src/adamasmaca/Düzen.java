@@ -18,60 +18,78 @@ public class Düzen {
 
     }
 
-    public void harfAç(String seçilenKelime, char girilenHarf, int hak,char[] göster) {
+    public void harfAç(String seçilenKelime) {
+        int kalanHak = 10;
         Scanner input = new Scanner(System.in);
-        ArrayList<Integer> bulunanIndex = new ArrayList<Integer>();
-        int a = 0;
-        for (int k = 0; k < seçilenKelime.length(); k++) {
-            if (seçilenKelime.charAt(k) == girilenHarf) {
-                bulunanIndex.add(a, k);
-                a++;
+        char girilenHarf;
+        char[] göster = new char[seçilenKelime.length()];
 
+        finish:
+        while (kalanHak > 0) {
+
+            System.out.print("Bir harf girin :");
+            girilenHarf = input.next().toUpperCase().charAt(0);
+            ArrayList<Integer> bulunanIndex = new ArrayList<Integer>();
+            int a = 0;
+
+            for (int k = 0; k < seçilenKelime.length(); k++) {
+                if (seçilenKelime.charAt(k) == girilenHarf) {
+                    bulunanIndex.add(a, k);
+                    a++;
+
+                }
             }
+
+            if (bulunanIndex.isEmpty()) {
+                kalanHak = kalanHak - 1;
+                System.out.println("Çıkmadı.Yeniden deneyin..\n" + "Kalan hakkınız : " + kalanHak);
+                hakkımBittimi(seçilenKelime, kalanHak);
+                kelimeyiGöster(bulunanIndex, göster, girilenHarf, seçilenKelime);
+            } else {
+                //BU HARF KELİMENİN İÇİNDE VAR
+
+                kelimeyiGöster(bulunanIndex, göster, girilenHarf, seçilenKelime);
+
+                for (int y = 0; y < göster.length; y++) {
+                    if (göster[y] != '_') {
+                        break;
+                    }
+
+                }
+                System.out.println("Tebrikler.Kalan hakkınız : " + (kalanHak));
+            }
+
         }
 
-        hak = hak - 1;
-        if (bulunanIndex.isEmpty()) {
-            System.out.println("Çıkmadı.Yeniden deneyin..\n" + "Kalan hakkınız : " + hak);
-        } else {
-            //BU HARF KELİMENİN İÇİNDE VAR
+    }
 
-            System.out.println("Bu harf var");
-            
-            for (int m = 0; m < göster.length; m++) {
-                for (int s = 0; s < bulunanIndex.size(); s++) {
-                    int b = bulunanIndex.get(s);
-                    göster[b] = girilenHarf;
-                }
-                if (seçilenKelime.charAt(m) == ' ') {
-                    göster[m] = '/';
+    public void kelimeyiGöster(ArrayList<Integer> bulunanIndex, char[] göster, char girilenHarf, String seçilenKelime) {
 
-                } else {
-                    göster[m] = '_';
+        for (int m = 0; m < göster.length; m++) {
+            for (int s = 0; s < bulunanIndex.size(); s++) {
+                int b = bulunanIndex.get(s);
+                göster[b] = girilenHarf;
+            }
+            if (seçilenKelime.charAt(m) == ' ') {
+                göster[m] = '/';
 
-                }
+            } else {
+                göster[m] = '_';
 
             }
-            for (int y = 0; y < göster.length; y++) {
-                System.out.print(göster[y] + " ");
 
-            }
-            System.out.println();
-            for (int y = 0; y < göster.length; y++) {
-                if (göster[y] != '_') {
-                    break;
-                } else {
-                    char yeniHarf;
-                    System.out.println("Daha bitmedi");
-                    System.out.println("Tebrikler.Kalan hakkınız : " + (hak + 1));
+        }
+        for (int y = 0; y < göster.length; y++) {
+            System.out.print(göster[y] + " ");
 
-                    System.out.println("Yeni bir harf girin : ");
+        }
+        System.out.println();
 
-                    yeniHarf = input.next().toUpperCase().charAt(0);
-                    harfAç(seçilenKelime, yeniHarf, hak + 1,göster);
-                }
+    }
 
-            }
+    public void hakkımBittimi(String seçilenKelime, int hak) {
+        if (hak <= 0) {
+            System.out.println("Üzgünüm bulamadınız.. \n Aradığınız kelime şuydu : " + seçilenKelime);
         }
     }
 }
