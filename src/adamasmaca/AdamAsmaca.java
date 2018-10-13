@@ -18,7 +18,7 @@ public class AdamAsmaca {
         System.out.println("Kelimenin konusu : " + sorulanKonu);
 
         seçilenKelime = myKelime.kelimeSeç(sorulanKonu);
-        System.out.println(seçilenKelime);
+        /*System.out.println(seçilenKelime);*/
         firstLook.ilkDüzen(seçilenKelime);
         firstLook.harfAç(seçilenKelime);
 
